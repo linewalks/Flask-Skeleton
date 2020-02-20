@@ -1,0 +1,13 @@
+#cache
+__pycache__/
+
+#vscode
+.vscode/
+
+#cfg
+default.cfg
+
+
+*.log
+*.pid
+
