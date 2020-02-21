@@ -5,7 +5,6 @@ import flask.json
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
-from flask_migrate import Migrate
 from sqlalchemy import MetaData, create_engine
 from flask_sqlalchemy import SQLAlchemy
 from apispec import APISpec
@@ -14,7 +13,9 @@ from apispec_webframeworks.flask import FlaskPlugin
 from flask_apispec.extension import FlaskApiSpec
 
 app = Flask(__name__)
-
+skeleton_dir = os.getcwd()
+app.config.from_pyfile(f'{skeleton_dir}/main/default.cfg')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config.update({
     'APISPEC_SPEC': APISpec(
         title='skeleton',
@@ -27,7 +28,7 @@ app.config.update({
     'APISPEC_SWAGGER_UI_URL': '/docs/'
 })
 docs = FlaskApiSpec(app)
-
+db = SQLAlchemy(app)
 
 CORS(app)
 api = Api(app)
