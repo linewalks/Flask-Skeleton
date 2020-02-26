@@ -143,7 +143,6 @@ class TokenBlacklist(db.Model):
     """
     try:
       jti = decoded_token["jti"]
-      print(jti)
       email = decoded_token[identity_claim]["email"]
       token = TokenBlacklist.query.filter(TokenBlacklist.jti == jti).one()
       token.revoked = True

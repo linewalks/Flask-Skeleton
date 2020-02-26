@@ -1,5 +1,4 @@
 from flask_apispec import use_kwargs, marshal_with, doc
-from flask import Blueprint, request, g
 from flask_jwt_extended import (jwt_required,
                                 jwt_refresh_token_required,
                                 get_jwt_identity,
