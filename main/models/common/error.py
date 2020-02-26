@@ -28,6 +28,17 @@ ERROR_ID_ALREADY_EXISTS = Error('u102', "Id already exists.", 400)
 SUCCESS_ID_INSERT = Error('u202', "id insert success.", 200)
 SUCCESS_ID_UPDATE = Error('u203', "id update success.", 200)
 SUCCESS_ID_DELETE = Error('u204', "id delete success.", 200)
+SUCCESS_SIGNUP = Error('u205', "sign up success.", 200)
+SUCCESS_LOGOUT = Error('u205', "sign out success.", 200)
 
 ERROR_PARAMETER_NOT_EXISTS = Error('u301', "parameter not exists.", 400)
 ERROR_BODY_NOT_EXISTS = Error('u302', "body not exists.", 400)
+
+
+ERROR_VERIFY_EMAIL_PASSWORD = Error("u005", "Email or Password is not verified", 400)
+ERROR_NULL_EMAIL = Error("u006", "Email should not be null.", 400)
+ERROR_NULL_PASSWORD = Error("u007", "Password should not be null.", 400)
+ERROR_USER_EMAIL_EXISTS = Error("u008", "User email already exists.", 409)
+ERROR_USER_EMAIL_NOT_EXISTS = Error("u009", "User email not exists.", 400)
+ERROR_NOT_VALIDATED_ACCOUNT = Error("u010", "Your email has not been validated yet, please check your email.", 401)
+ERROR_USER_NOT_EXISTS = Error("u011", "User does not exist.", 401)
