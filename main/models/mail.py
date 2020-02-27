@@ -13,10 +13,8 @@ class SignupCheck(EmailMessage):
   def __init__(self, user, **kwargs):
     super(SignupCheck, self).__init__()
     self.default_title = "계정 인증 안내"
-    print(user.to_dict_email_verification())
     self.user_info = urlencode(user.to_dict_email_verification())
     self.url = f"{self.site_url}/api/verify_email?{self.user_info}"
-    print(self.url)
     self.default_body = f"""
     <p>회원가입 인증메일입니다</p>
 

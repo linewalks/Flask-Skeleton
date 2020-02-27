@@ -98,7 +98,6 @@ def signup(**kwargs):
   try:
     email_sender.sendmail(user_info.email, SignupCheck(user_info))
   except Exception as e:
-    print(e)
     return ERROR_SEND_MAIL.get_response()
 
   return SUCCESS_SIGNUP.get_response()
