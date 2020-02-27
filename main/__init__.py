@@ -33,8 +33,8 @@ app.config.update({
 app.config["JWT_IDENTITY_CLAIM"] = "identity"
 app.config["JWT_BLACKLIST_ENABLED"] = True
 app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = ["access", "refresh"]
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=3)
-app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=6)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_ACCESS_TOKEN_EXPIRES_TIME"])
+app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_REFRESH_TOKEN_EXPIRES_TIME"])
 docs = FlaskApiSpec(app)
 db = SQLAlchemy(app)
 compress = Compress(app)

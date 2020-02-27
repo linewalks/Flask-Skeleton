@@ -4,11 +4,11 @@ from flask_jwt_extended import (jwt_required,
                                 get_jwt_identity,
                                 create_access_token,
                                 get_raw_jwt)
-from . import auth_bp, API_CATEGORY, authorization_header
-from ... import app, db, jwt
-from ...models.resources import ResponseLoginSchema, RequestLoginSchema, ResponseBodySchema, ResponseAccessTokenSchema
-from ...models.user import User, TokenBlacklist
-from ...models.common.error import (
+from main.controllers.auth import auth_bp, API_CATEGORY, authorization_header
+from main import app, db, jwt
+from main.models.resources import ResponseLoginSchema, RequestLoginSchema, ResponseBodySchema, ResponseAccessTokenSchema
+from main.models.user import User, TokenBlacklist
+from main.models.common.error import (
     ResponseError,
     ERROR_NULL_EMAIL,
     ERROR_NULL_PASSWORD,

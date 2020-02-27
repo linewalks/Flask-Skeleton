@@ -1,5 +1,5 @@
 from sqlalchemy import BigInteger, Column, Integer, String, Table
-from .. import app, db
+from main import app, db
 
 
 t_test_log = db.Table(

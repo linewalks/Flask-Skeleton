@@ -4,4 +4,4 @@ skeleton_bp = Blueprint('skeleton', __name__, url_prefix="/api")
 
 API_CATEGORY = 'Skeleton'
 
-from .skeleton import *
+from main.controllers.skeleton import *

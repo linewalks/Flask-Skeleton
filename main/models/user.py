@@ -8,7 +8,7 @@ from flask_jwt_extended import (
 import random
 import string
 import base64
-from .. import app, db
+from main import app, db
 
 
 class User(db.Model):
@@ -27,7 +27,7 @@ class User(db.Model):
 
   def __repr__(self):
     return "<User %r>" % self.email
-  
+
   @property
   def password(self):
     raise AttributeError("password is not a readable attribute")
