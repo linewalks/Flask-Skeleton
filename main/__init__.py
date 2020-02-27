@@ -2,6 +2,7 @@ import configparser
 import os
 import decimal
 import flask.json
+
 from datetime import timedelta
 from flask import Flask
 from flask_restful import Api
@@ -14,7 +15,7 @@ from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
 from flask_apispec.extension import FlaskApiSpec
-
+from main.models.smtp import Smtp
 app = Flask(__name__)
 skeleton_dir = os.getcwd()
 app.config.from_pyfile(f'{skeleton_dir}/main/default.cfg')
@@ -41,7 +42,8 @@ compress = Compress(app)
 jwt = JWTManager(app)
 CORS(app)
 api = Api(app)
-
+email_sender = Smtp("smtp.gmail.com", 587)
+email_sender.set_account(app.config["EMAIL_ACCOUNT"], app.config["EMAIL_PASSWORD"])
 
 # Blueprint
 from .controllers import skeleton_bp

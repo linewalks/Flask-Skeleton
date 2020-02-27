@@ -7,6 +7,7 @@ from flask_jwt_extended import (
 )
 import random
 import string
+import jwt
 import base64
 from main import app, db
 
@@ -23,6 +24,8 @@ class User(db.Model):
 
   def __init__(self, **kwargs):
     super(User, self).__init__(**kwargs)
+    if self.token is None:
+      self.token = self.generate_token(datetime.utcnow())
     self.password = kwargs["password"]
 
   def __repr__(self):
@@ -35,6 +38,9 @@ class User(db.Model):
   @password.setter
   def password(self, password):
     self.password_hash = generate_password_hash(password)
+
+  def generate_token(self, created_time):
+    return jwt.encode({"exp": created_time}, app.config["JWT_SECRET_KEY"])
 
   def verify_password(self, password):
     return check_password_hash(self.password_hash, password)
@@ -54,6 +60,10 @@ class User(db.Model):
             "refresh_token": refresh_token,
             "email": self.email}
 
+  def to_dict_email_verification(self):
+    return {"email": self.email,
+            "token": self.token}
+
   @staticmethod
   def exists(email):
     return User.query.filter(User.email == email).scalar()
@@ -61,6 +71,11 @@ class User(db.Model):
   @staticmethod
   def get_info(email):
     return User.query.filter(User.email == email).first()
+
+  @staticmethod
+  def verified(email):
+    u = User.query.filter(User.email == email).one_or_none()
+    return u.confirmed if u else False
 
   @staticmethod
   def delete(email):
