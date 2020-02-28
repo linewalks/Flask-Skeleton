@@ -57,7 +57,7 @@ def signin(**kwargs):
   if not u.verify_password(password):
     return ERROR_VERIFY_EMAIL_PASSWORD.get_response()
   if not u.confirmed:
-    return be.ERROR_NOT_VALIDATED_ACCOUNT.get_response()
+    return ERROR_NOT_VALIDATED_ACCOUNT.get_response()
   return u.to_dict()
 
 
