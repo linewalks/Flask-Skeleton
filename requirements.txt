@@ -1,3 +1,4 @@
+webargs==5.5.1
 flask_jwt_extended
 Flask
 flask_cors
@@ -10,4 +11,3 @@ gunicorn
 flask-compress
 apispec_webframeworks
 pyyaml
-webargs==5.5.1
