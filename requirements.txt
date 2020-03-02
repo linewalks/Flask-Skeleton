@@ -10,3 +10,4 @@ gunicorn
 flask-compress
 apispec_webframeworks
 pyyaml
+webargs==5.5.1
