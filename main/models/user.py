@@ -22,7 +22,7 @@ class User(db.Model):
   confirmed = db.Column(db.Boolean, default=False)
 
   def __init__(self, **kwargs):
-    super(User, self).__init__(**kwargs)
+    super()
     self.password = kwargs["password"]
 
   def __repr__(self):
