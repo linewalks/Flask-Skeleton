@@ -22,7 +22,7 @@ class User(db.Model):
   confirmed = db.Column(db.Boolean, default=False)
 
   def __init__(self, **kwargs):
-    super()
+    super().__init__(**kwargs)
     self.password = kwargs["password"]
 
   def __repr__(self):
@@ -78,7 +78,7 @@ class TokenBlacklist(db.Model):
   expires = db.Column(db.DateTime, nullable=False)
 
   def __init__(self, **kwargs):
-    super(TokenBlacklist, self).__init__(**kwargs)
+    super().__init__(**kwargs)
 
   def to_dict(self):
     return {
