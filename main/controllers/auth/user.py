@@ -105,6 +105,7 @@ def signup(**kwargs):
 
 @auth_bp.route("/signout", methods=["POST"])
 @jwt_required
+@marshal_with(ResponseError)
 @doc(tags=[API_CATEGORY],
      summary="로그아웃",
      description="사용자 로그아웃을 합니다.",
@@ -116,11 +117,12 @@ def signout():
 
 @auth_bp.route("/refresh", methods=["POST"])
 @jwt_refresh_token_required
+@marshal_with(ResponseAccessTokenSchema, code=200)
+@marshal_with(ResponseError)
 @doc(tags=[API_CATEGORY],
      summary="access 토큰 갱신",
      description="access 토큰을 갱신합니다.",
      params=authorization_header)
-@marshal_with(ResponseAccessTokenSchema, code=200)
 def refresh():
   current_user = get_jwt_identity()
   if not User.exists(current_user["email"]):

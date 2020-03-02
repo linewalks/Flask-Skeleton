@@ -28,10 +28,10 @@ class ResponseBodySchema(Schema):
 
 
 class ResponseLoginSchema(Schema):
-  access_token = fields.Str()
-  refresh_token = fields.Str()
+  accessToken = fields.Str(attribute='access_token')
+  refreshToken = fields.Str(attribute='refresh_token')
   email = fields.Str()
 
 
 class ResponseAccessTokenSchema(Schema):
-  access_token = fields.Str()
+  accessToken = fields.Str(attribute='access_token')
