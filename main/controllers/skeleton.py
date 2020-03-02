@@ -1,9 +1,9 @@
 from flask_apispec import use_kwargs, marshal_with, doc
-from . import skeleton_bp, API_CATEGORY
+from main.controllers import skeleton_bp, API_CATEGORY
 from .common.skeleton import check_test_id_exists
-from .. import app, db
-from ..models.resources import RequestBodySchema, RequestParameterSchema, ResponseBodySchema
-from ..models.data import (
+from main import app, db
+from main.models.resources import RequestBodySchema, RequestParameterSchema, ResponseBodySchema
+from main.models.data import (
     get_test_id_in_table,
     insert_test_id_in_table,
     update_test_id_in_table,

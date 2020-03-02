@@ -2,11 +2,14 @@ import configparser
 import os
 import decimal
 import flask.json
+from datetime import timedelta
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 from sqlalchemy import MetaData, create_engine
 from flask_sqlalchemy import SQLAlchemy
+from flask_compress import Compress
+from flask_jwt_extended import JWTManager
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
@@ -27,17 +30,25 @@ app.config.update({
     'APISPEC_SWAGGER_URL': '/docs.json',
     'APISPEC_SWAGGER_UI_URL': '/docs/'
 })
+app.config["JWT_IDENTITY_CLAIM"] = "identity"
+app.config["JWT_BLACKLIST_ENABLED"] = True
+app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = ["access", "refresh"]
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_ACCESS_TOKEN_EXPIRES_TIME"])
+app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_REFRESH_TOKEN_EXPIRES_TIME"])
 docs = FlaskApiSpec(app)
 db = SQLAlchemy(app)
-
+compress = Compress(app)
+jwt = JWTManager(app)
 CORS(app)
 api = Api(app)
 
 
 # Blueprint
 from .controllers import skeleton_bp
+from .controllers.auth import auth_bp
 blueprints = [
-    skeleton_bp
+    skeleton_bp,
+    auth_bp
 ]
 
 for bp in blueprints:

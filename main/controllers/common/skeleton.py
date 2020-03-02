@@ -1,5 +1,5 @@
-from ... import app, db
-from ...models.data import t_test_log
+from main import app, db
+from main.models.data import t_test_log
 
 schema_name = app.config['SCHEMA_TEST']
 
