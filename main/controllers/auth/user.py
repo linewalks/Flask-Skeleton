@@ -5,8 +5,15 @@ from flask_jwt_extended import (jwt_required,
                                 create_access_token,
                                 get_raw_jwt)
 from main.controllers.auth import auth_bp, API_CATEGORY, authorization_header
-from main import app, db, jwt
-from main.models.resources import ResponseLoginSchema, RequestLoginSchema, ResponseBodySchema, ResponseAccessTokenSchema
+from main import app, db, jwt, email_sender
+from main.models.resources import (
+    ResponseLoginSchema,
+    RequestLoginSchema,
+    ResponseBodySchema,
+    ResponseAccessTokenSchema,
+    RequestEmailVerification
+)
+from main.models.mail import SignupCheck
 from main.models.user import User, TokenBlacklist
 from main.models.common.error import (
     ResponseError,
@@ -17,8 +24,11 @@ from main.models.common.error import (
     ERROR_VERIFY_EMAIL_PASSWORD,
     ERROR_USER_NOT_EXISTS,
     ERROR_NOT_VALIDATED_ACCOUNT,
+    ERROR_SIGNUP_VERIFICATION,
+    ERROR_SEND_MAIL,
     SUCCESS_SIGNUP,
-    SUCCESS_LOGOUT
+    SUCCESS_LOGOUT,
+    SUCCESS_VERIFICATION
 )
 
 
@@ -46,7 +56,29 @@ def signin(**kwargs):
   u = User.get_info(email)
   if not u.verify_password(password):
     return ERROR_VERIFY_EMAIL_PASSWORD.get_response()
+  if not u.confirmed:
+    return ERROR_NOT_VALIDATED_ACCOUNT.get_response()
   return u.to_dict()
+
+
+@auth_bp.route('/verify_email', methods=['GET'])
+@use_kwargs(RequestEmailVerification)
+@marshal_with(ResponseError)
+@doc(tags=[API_CATEGORY],
+     summary="사용자 이메일 확인",
+     description="사용자의 이메일을 확인합니다")
+def verify_email(**kwargs):
+  email = kwargs["email"]
+  if not User.exists(email):
+    return ERROR_USER_NOT_EXISTS.get_response()
+
+  u = User.get_info(email)
+  if u.token != kwargs["token"]:
+    return ERROR_SIGNUP_VERIFICATION.get_response()
+  else:
+    u.confirmed = True
+    db.session.commit()
+    return SUCCESS_VERIFICATION.get_response()
 
 
 @auth_bp.route('/signup', methods=['POST'])
@@ -63,6 +95,11 @@ def signup(**kwargs):
   user_info = User(**kwargs)
   db.session.add(user_info)
   db.session.commit()
+  try:
+    email_sender.sendmail(user_info.email, SignupCheck(user_info))
+  except Exception as e:
+    return ERROR_SEND_MAIL.get_response()
+
   return SUCCESS_SIGNUP.get_response()
 
 
@@ -93,3 +130,4 @@ def refresh():
   access_token = create_access_token(identity=dict(email=current_user["email"]))
   TokenBlacklist.add_token_to_database(access_token, app.config["JWT_IDENTITY_CLAIM"])
   return {"access_token": access_token}
+
