@@ -18,7 +18,7 @@
 │   │   ├── common
 │   │   │   └── skeleton.py
 │   │   └── skeleton.py
-│   ├── defalut_example.cfg
+│   ├── default_example.cfg
 │   ├── default.cfg
 │   └── models
 │       ├── __init__.py
