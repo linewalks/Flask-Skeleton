@@ -68,8 +68,8 @@ SITE_URI="api 주소"
 
 # Flask-Skeleton English ver. 
 ## Overview
-- This API Skeleton code was built as a Flask used as a backend development stack in Linewalks.
-- This API code provides basic CRUD and AUTH functions.
+- This API code is built with the Flask for a backend development stack in Linewalks.
+- It provides basic CRUD methods and authentication.
 
 * Dir structure
 ```
@@ -104,8 +104,8 @@ SITE_URI="api 주소"
 ```
 
 ## Installation
-- Recommand python 3.6.4 version
-- Install dependency
+- Recommend python 3.6.4 version
+- Install dependencies
 ```
 python3 -m pip install -r requirements.txt
 ```
@@ -123,12 +123,12 @@ SITE_URI="api url"
 ## Basic use
 `python3 run.py {port number}`
 
-##  database structure
- - auth table
-    * ![auth table](https://user-images.githubusercontent.com/26132534/76726651-23679380-6795-11ea-8b5c-490f2dbe0a84.png)
+## Database structure
+ - Sample tables
+    * ![Sample table](https://user-images.githubusercontent.com/26132534/76726651-23679380-6795-11ea-8b5c-490f2dbe0a84.png)
 
- - crud table
-   * ![crud table](https://user-images.githubusercontent.com/26132534/76726676-39755400-6795-11ea-8e66-5444f8e9e66b.png)
+ - Crud table
+   * ![Crud table](https://user-images.githubusercontent.com/26132534/76726676-39755400-6795-11ea-8e66-5444f8e9e66b.png)
 
-## test 
+## Test 
 `pytest -sv test/`
