@@ -40,7 +40,6 @@ def simple_post_test_status_code(client, status_code, url, body=None):
         "Accept": mimetype
     }
     rv = client.post(url, data=json.dumps(body), headers=headers)
-    print(rv.data)
     response = to_json(rv.data)
     
     assert rv.content_type == mimetype
