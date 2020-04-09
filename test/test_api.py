@@ -58,10 +58,6 @@ def simple_post_test_status_code_200(client, url, body=None):
   return simple_post_test_status_code(client, 200, url, body)
 
 
-def simple_post_test_status_code_404(client, url, body=None):
-  return simple_post_test_status_code(client, 404, url, body)
-
-
 @pytest.fixture(scope="class", autouse=True)
 def client(app):
   client = app.test_client()
