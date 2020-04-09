@@ -24,7 +24,7 @@ def user(session, id):
             t_test_log.c.id == id
         )
     )
-   
+
 
 # 공통 함수
 def simple_get_test_status_code(client, status_code, url, query_string=None):
@@ -41,7 +41,6 @@ def simple_post_test_status_code(client, status_code, url, body=None):
     }
     rv = client.post(url, data=json.dumps(body), headers=headers)
     response = to_json(rv.data)
-    
     assert rv.content_type == mimetype
     assert rv.status_code == status_code
     return rv
@@ -73,12 +72,11 @@ class TestSkeleton():
   @pytest.mark.parametrize("id", [1])
   def test_get_skeleton_success(self, client, id):
     simple_get_test_status_code_200(client, "/api/skeleton", f"id={id}")
-  
+
   def test_get_skeleton_not_found(self, client):
     simple_get_test_status_code_404(client, "/api/skeleton")
-  
+
   @pytest.mark.parametrize("id", [1, 5, 10, 100])
   def test_post_skeleton_success(self, client, user, id):
       data = {"id": id, "name": "test_name", "count": 10}
       simple_post_test_status_code_200(client, "/api/skeleton", data)
-   
