@@ -11,6 +11,7 @@ flask_restful
 flask_sqlalchemy
 gunicorn
 marshmallow
+psycopg2-binary
 pytest
 pyyaml
 sqlalchemy
