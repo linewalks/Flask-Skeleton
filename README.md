@@ -52,6 +52,8 @@ EMAIL_ACCOUNT="구글 이메일 주소"
 EMAIL_PASSWORD="구글 이메일 비밀번호"
 SITE_URI="api 주소"
 ```
+- Database 를 PostgreSQL 로 가정하고 구성하였습니다. 다른 데이터베이스를 사용시 requirements.txt 및 default.cfg 의 URI 를 변경해야 합니다.
+
 ## API 실행 방법
 `python3 run.py {port 번호}`
 
@@ -120,6 +122,8 @@ EMAIL_ACCOUNT="google email address"
 EMAIL_PASSWORD="google email password"
 SITE_URI="api url"
 ```
+- Database is assumed and configured as PostgreSQL. You must change the URI of default.cfg and requirements.txt when using other databases.
+
 ## Basic use
 `python3 run.py {port number}`
 
