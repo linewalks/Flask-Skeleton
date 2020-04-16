@@ -1,9 +1,10 @@
 webargs==5.5.1
 flask_jwt_extended
+flask_sqlalchemy
 Flask
 flask_cors
 apispec
-flask_apispec
+flask_apispec==0.8.1
 marshmallow
 pytest
 Fabric3==1.14.post1
@@ -11,3 +12,4 @@ gunicorn
 flask-compress
 apispec_webframeworks
 pyyaml
+psycopg2
