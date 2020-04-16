@@ -14,4 +14,7 @@ def app():
   app_context.pop()
 
 
-
+@pytest.fixture(scope="class", autouse=True)
+def client(app):
+  client = app.test_client()
+  yield client

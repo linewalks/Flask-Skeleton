@@ -5,7 +5,7 @@ from test import to_json
 from main import db
 from flask import g
 from main.models.data import t_test_log
-
+from test.conftest import client
 
 @pytest.fixture(scope="function")
 def session():
@@ -56,12 +56,6 @@ def simple_get_test_status_code_404(client, url, query_string=None):
 
 def simple_post_test_status_code_200(client, url, body=None):
   return simple_post_test_status_code(client, 200, url, body)
-
-
-@pytest.fixture(scope="class", autouse=True)
-def client(app):
-  client = app.test_client()
-  yield client
 
 
 class TestSkeleton():
