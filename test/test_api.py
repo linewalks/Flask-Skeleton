@@ -1,7 +1,7 @@
 import pytest
 
 import json
-from . import to_json
+from test import to_json
 from main import db
 from flask import g
 from main.models.data import t_test_log

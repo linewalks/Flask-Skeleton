@@ -30,7 +30,7 @@ ERROR_USER_EMAIL_NOT_EXISTS = Error("u009", "User email not exists.", 400)
 ERROR_NOT_VALIDATED_ACCOUNT = Error("u010", "Your email has not been validated yet, please check your email.", 401)
 ERROR_USER_NOT_EXISTS = Error("u011", "User does not exist.", 401)
 ERROR_SEND_MAIL = Error("u012", "Sending an email make error.", 404)
-ERROR_SIGNUP_VERIFICATION = Error("u013", "Signup is eror.", 401)
+ERROR_SIGNUP_VERIFICATION = Error("u013", "Signup is error.", 401)
 
 ERROR_ID_NOT_EXISTS = Error('u101', "Id not exists.", 400)
 ERROR_ID_ALREADY_EXISTS = Error('u102', "Id already exists.", 400)
