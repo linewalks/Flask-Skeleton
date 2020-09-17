@@ -5,9 +5,7 @@ import flask.json
 
 from datetime import timedelta
 from flask import Flask
-from flask_restful import Api
 from flask_cors import CORS
-from sqlalchemy import MetaData, create_engine
 from flask_sqlalchemy import SQLAlchemy
 from flask_compress import Compress
 from flask_jwt_extended import JWTManager
@@ -41,7 +39,6 @@ db = SQLAlchemy(app)
 compress = Compress(app)
 jwt = JWTManager(app)
 CORS(app)
-api = Api(app)
 email_sender = Smtp("smtp.gmail.com", 587)
 email_sender.set_account(app.config["EMAIL_ACCOUNT"], app.config["EMAIL_PASSWORD"])
 
