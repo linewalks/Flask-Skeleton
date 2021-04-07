@@ -1,4 +1,4 @@
-webargs==5.5.1
+webargs==5.5.3
 marshmallow==2.19.5
 flask_jwt_extended
 flask_sqlalchemy
