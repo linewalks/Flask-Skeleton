@@ -16,5 +16,10 @@ authorization_header = {
         True
     }
 }
-
-from .user import *
+from main.controllers.auth.user import (
+    signin,
+    verify_email,
+    signup,
+    signout,
+    refresh
+)

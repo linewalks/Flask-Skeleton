@@ -62,8 +62,8 @@ def create_app(file_paht=file_path):
     from main.models.user import User, TokenBlacklist
 
     # Blueprint
-    from .controllers import skeleton_bp
-    from .controllers.auth import auth_bp
+    from main.controllers import skeleton_bp
+    from main.controllers.auth import auth_bp
     blueprints = [
         skeleton_bp,
         auth_bp

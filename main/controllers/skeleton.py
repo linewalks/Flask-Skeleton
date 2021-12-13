@@ -1,7 +1,7 @@
 from flask import current_app as app
 from flask_apispec import use_kwargs, marshal_with, doc
 from main.controllers import skeleton_bp, API_CATEGORY
-from .common.skeleton import check_test_id_exists
+from main.controllers.common.skeleton import check_test_id_exists
 from main import db
 from main.models.resources import RequestBodySchema, RequestParameterSchema, ResponseBodySchema
 from main.models.data import (
@@ -10,7 +10,7 @@ from main.models.data import (
     update_test_id_in_table,
     delete_test_id_in_table
 )
-from ..models.common.error import (
+from main.models.common.error import (
     ResponseError,
     ERROR_ID_NOT_EXISTS,
     ERROR_ID_ALREADY_EXISTS,
