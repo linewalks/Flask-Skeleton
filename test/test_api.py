@@ -1,11 +1,12 @@
 import pytest
-
 import json
-from test import to_json
-from main import db
+
 from flask import g
 
+from main import db
+from test import to_json
 from test.conftest import client
+
 
 @pytest.fixture(scope="function")
 def session():
