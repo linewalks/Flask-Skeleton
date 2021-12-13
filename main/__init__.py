@@ -1,23 +1,22 @@
-import configparser
 import os
-import decimal
-import flask.json
 
-from datetime import timedelta
-from flask import Flask
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from flask_compress import Compress
-from flask_jwt_extended import JWTManager
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
+from datetime import timedelta
+from flask import Flask
 from flask_apispec.extension import FlaskApiSpec
+from flask_compress import Compress
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
 from main.models.smtp import Smtp
 
 
-file_path = f"{os.getcwd()}/main/skeleton.cfg"
+
+file_path = f"{os.getcwd()}/main/flask_skeleton.cfg"
 
 docs = FlaskApiSpec()
 db = SQLAlchemy()

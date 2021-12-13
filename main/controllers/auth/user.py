@@ -1,37 +1,38 @@
 from flask import current_app as apispec
 from flask_apispec import use_kwargs, marshal_with, doc
 from flask_jwt_extended import (
-    jwt_required,
-    get_jwt_identity,
     create_access_token,
-    get_jwt
+    get_jwt,
+    get_jwt_identity,
+    jwt_required
 )
-from main.controllers.auth import auth_bp, API_CATEGORY, authorization_header
+
 from main import db, jwt, email_sender
-from main.models.resources import (
-    ResponseLoginSchema,
-    RequestLoginSchema,
-    ResponseBodySchema,
-    ResponseAccessTokenSchema,
-    RequestEmailVerification
-)
-from main.models.mail import SignupCheck
-from main.models.user import User, TokenBlacklist
+from main.controllers.auth import auth_bp, API_CATEGORY, authorization_header
 from main.models.common.error import (
-    ResponseError,
+    ERROR_NOT_VALIDATED_ACCOUNT,
     ERROR_NULL_EMAIL,
     ERROR_NULL_PASSWORD,
+    ERROR_SEND_MAIL,
+    ERROR_SIGNUP_VERIFICATION,
     ERROR_USER_EMAIL_EXISTS,
     ERROR_USER_EMAIL_NOT_EXISTS,
-    ERROR_VERIFY_EMAIL_PASSWORD,
     ERROR_USER_NOT_EXISTS,
-    ERROR_NOT_VALIDATED_ACCOUNT,
-    ERROR_SIGNUP_VERIFICATION,
-    ERROR_SEND_MAIL,
-    SUCCESS_SIGNUP,
+    ERROR_VERIFY_EMAIL_PASSWORD,
+    ResponseError,
     SUCCESS_LOGOUT,
+    SUCCESS_SIGNUP,
     SUCCESS_VERIFICATION
 )
+from main.models.mail import SignupCheck
+from main.models.resources import (
+    RequestEmailVerification,
+    RequestLoginSchema,
+    ResponseAccessTokenSchema,
+    ResponseBodySchema,
+    ResponseLoginSchema
+)
+from main.models.user import User, TokenBlacklist
 
 
 @jwt.token_in_blocklist_loader

@@ -1,15 +1,9 @@
 from flask import current_app as app
 from flask_apispec import use_kwargs, marshal_with, doc
+
+from main import db
 from main.controllers import skeleton_bp, API_CATEGORY
 from main.controllers.common.skeleton import check_test_id_exists
-from main import db
-from main.models.resources import RequestBodySchema, RequestParameterSchema, ResponseBodySchema
-from main.models.data import (
-    get_test_id_in_table,
-    insert_test_id_in_table,
-    update_test_id_in_table,
-    delete_test_id_in_table
-)
 from main.models.common.error import (
     ResponseError,
     ERROR_ID_NOT_EXISTS,
@@ -20,6 +14,13 @@ from main.models.common.error import (
     SUCCESS_ID_UPDATE,
     SUCCESS_ID_INSERT
 )
+from main.models.data import (
+    get_test_id_in_table,
+    insert_test_id_in_table,
+    update_test_id_in_table,
+    delete_test_id_in_table
+)
+from main.models.resources import RequestBodySchema, RequestParameterSchema, ResponseBodySchema
 
 
 @skeleton_bp.route('/skeleton', methods=['GET'])
