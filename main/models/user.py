@@ -87,7 +87,7 @@ class TokenBlacklist(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   jti = db.Column(db.String(36), nullable=False)
   token_type = db.Column(db.String(10), nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey("mdwalks_backup.users.id", ondelete="SET NULL"), nullable=True)
+  user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete="SET NULL"), nullable=True)
   revoked = db.Column(db.Boolean, nullable=False)
   expires = db.Column(db.DateTime, nullable=False)
 

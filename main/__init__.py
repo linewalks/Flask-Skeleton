@@ -13,6 +13,7 @@ from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
 from flask_apispec.extension import FlaskApiSpec
+from flask_migrate import Migrate
 from main.models.smtp import Smtp
 
 
@@ -20,6 +21,7 @@ file_path = f"{os.getcwd()}/main/skeleton.cfg"
 
 docs = FlaskApiSpec()
 db = SQLAlchemy()
+migrate = Migrate()
 compress = Compress()
 jwt = JWTManager()
 cors = CORS()
@@ -48,12 +50,17 @@ def create_app(file_paht=file_path):
   app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_REFRESH_TOKEN_EXPIRES_TIME"])
   docs.init_app(app)
   db.init_app(app)
+  migrate.init_app(app, db, compare_type=True, compare_server_default=True)
   compress.init_app(app)
   jwt.init_app(app)
   cors.init_app(app)
   email_sender.set_account(app.config["EMAIL_ACCOUNT"], app.config["EMAIL_PASSWORD"])
 
   with app.app_context():
+    # set mirgration model import
+    from main.models.data import t_test_log
+    from main.models.user import User, TokenBlacklist
+
     # Blueprint
     from .controllers import skeleton_bp
     from .controllers.auth import auth_bp
