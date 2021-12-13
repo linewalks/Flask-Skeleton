@@ -15,7 +15,9 @@ from flask_sqlalchemy import SQLAlchemy
 from main.models.smtp import Smtp
 
 
-file_path = f"{os.getcwd()}/main/flask_skeleton.cfg"
+root_path = os.getcwd()
+file_path = os.path.join(root_path, "main", "flask_skeleton.cfg")
+
 
 docs = FlaskApiSpec()
 db = SQLAlchemy()
