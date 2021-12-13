@@ -32,7 +32,7 @@ from main.models.resources import (
     ResponseBodySchema,
     ResponseLoginSchema
 )
-from main.models.user import User, TokenBlacklist
+from main.models.user import TokenBlacklist, User
 
 
 @jwt.token_in_blocklist_loader

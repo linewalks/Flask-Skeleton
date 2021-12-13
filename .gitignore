@@ -5,7 +5,7 @@ __pycache__/
 .vscode/
 
 #cfg
-skeleton.cfg
+flask_skeleton.cfg
 
 
 *.log

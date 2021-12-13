@@ -15,7 +15,6 @@ from flask_sqlalchemy import SQLAlchemy
 from main.models.smtp import Smtp
 
 
-
 file_path = f"{os.getcwd()}/main/flask_skeleton.cfg"
 
 docs = FlaskApiSpec()
@@ -25,6 +24,7 @@ compress = Compress()
 jwt = JWTManager()
 cors = CORS()
 email_sender = Smtp("smtp.gmail.com", 587)
+
 
 def create_app(file_paht=file_path):
   app = Flask(__name__)
