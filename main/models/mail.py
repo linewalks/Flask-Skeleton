@@ -1,6 +1,6 @@
+from flask import current_app as app
 from urllib.parse import urlencode
 from main.models.user import User
-from main import app
 
 
 class EmailMessage(object):

@@ -1,5 +1,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import current_app as app
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -9,7 +10,7 @@ import random
 import string
 import jwt
 import base64
-from main import app, db
+from main import db
 
 
 class User(db.Model):

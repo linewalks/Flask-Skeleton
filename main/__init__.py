@@ -16,8 +16,14 @@ from flask_apispec.extension import FlaskApiSpec
 from main.models.smtp import Smtp
 
 
-file_path = f"{os.getcwd()}/main/default.cfg"
+file_path = f"{os.getcwd()}/main/skeleton.cfg"
 
+docs = FlaskApiSpec()
+db = SQLAlchemy()
+compress = Compress()
+jwt = JWTManager()
+cors = CORS()
+email_sender = Smtp("smtp.gmail.com", 587)
 
 def create_app(file_paht=file_path):
   app = Flask(__name__)
@@ -27,9 +33,9 @@ def create_app(file_paht=file_path):
   app.config.update({
       "APISPEC_SPEC": APISpec(
           title="skeleton",
-          version="v1",
+          version="0.0.1",
           openapi_version="2.0.0",
-          plugins=[MarshmallowPlugin()],
+          plugins=[FlaskPlugin(), MarshmallowPlugin()],
 
       ),
       "APISPEC_SWAGGER_URL": "/docs.json",
@@ -40,12 +46,11 @@ def create_app(file_paht=file_path):
   app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = ["access", "refresh"]
   app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_ACCESS_TOKEN_EXPIRES_TIME"])
   app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_REFRESH_TOKEN_EXPIRES_TIME"])
-  docs = FlaskApiSpec(app)
-  db = SQLAlchemy(app)
-  compress = Compress(app)
-  jwt = JWTManager(app)
-  CORS(app)
-  email_sender = Smtp("smtp.gmail.com", 587)
+  docs.init_app(app)
+  db.init_app(app)
+  compress.init_app(app)
+  jwt.init_app(app)
+  cors.init_app(app)
   email_sender.set_account(app.config["EMAIL_ACCOUNT"], app.config["EMAIL_PASSWORD"])
 
   with app.app_context():
