@@ -7,8 +7,16 @@ from flask_jwt_extended import (
     jwt_required
 )
 
-from main import db, jwt, email_sender
-from main.controllers.auth import auth_bp, API_CATEGORY, authorization_header
+from main import (
+    db,
+    email_sender,
+    jwt
+)
+from main.controllers.auth import (
+    auth_bp, 
+    authorization_header,
+    API_CATEGORY
+)
 from main.models.common.error import (
     ERROR_NOT_VALIDATED_ACCOUNT,
     ERROR_NULL_EMAIL,
