@@ -6,7 +6,7 @@ from main.models.common.base import BaseTable
 
 
 class Board(BaseTable, db.Model):
-  __table_name__ = "board"
+  __tablename__ = "board"
   __table_args__ = {"schema": schema, "extend_existing": True}
   id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
   title = db.Column(db.String(50), nullable=False) 
