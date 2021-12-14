@@ -8,24 +8,18 @@ from flask import Flask
 from flask_apispec.extension import FlaskApiSpec
 from flask_compress import Compress
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-
-from main.models.smtp import Smtp
 
 
 root_path = os.getcwd()
 file_path = os.path.join(root_path, "main", "flask_skeleton.cfg")
 
-
 docs = FlaskApiSpec()
 db = SQLAlchemy()
 migrate = Migrate()
 compress = Compress()
-jwt = JWTManager()
 cors = CORS()
-email_sender = Smtp("smtp.gmail.com", 587)
 
 
 def create_app(file_paht=file_path):
@@ -44,30 +38,23 @@ def create_app(file_paht=file_path):
       "APISPEC_SWAGGER_URL": "/docs.json",
       "APISPEC_SWAGGER_UI_URL": "/docs/"
   })
-  app.config["JWT_IDENTITY_CLAIM"] = "identity"
-  app.config["JWT_BLACKLIST_ENABLED"] = True
-  app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = ["access", "refresh"]
-  app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_ACCESS_TOKEN_EXPIRES_TIME"])
-  app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_REFRESH_TOKEN_EXPIRES_TIME"])
+
   docs.init_app(app)
   db.init_app(app)
   migrate.init_app(app, db, compare_type=True, compare_server_default=True)
   compress.init_app(app)
-  jwt.init_app(app)
   cors.init_app(app)
-  email_sender.set_account(app.config["EMAIL_ACCOUNT"], app.config["EMAIL_PASSWORD"])
 
   with app.app_context():
     # set mirgration model import
-    from main.models.data import t_test_log
-    from main.models.user import User, TokenBlacklist
+    from main.models.board import Board
+    from main.models.reply import Reply
 
     # Blueprint
-    from main.controllers import skeleton_bp
-    from main.controllers.auth import auth_bp
+    # TODO api 작성 후 주석 제거
+    # from main.controllers import skeleton_bp
     blueprints = [
-        skeleton_bp,
-        auth_bp
+        # skeleton_bp
     ]
 
     for bp in blueprints:
