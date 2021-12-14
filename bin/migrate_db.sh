@@ -1,1 +1,1 @@
-flask db migrate
+python migrate.py

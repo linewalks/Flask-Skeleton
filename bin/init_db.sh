@@ -1,6 +1,6 @@
 # run init_db.sh 
 flask db init
 
-flask db migrate
+python migrate.py
 
 flask db upgrade
