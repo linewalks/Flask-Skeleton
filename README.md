@@ -32,6 +32,7 @@
 │       └── __init__.py
 ├── requirements.txt
 ├── run.py
+├── migrate.py
 └── test
     └── __init__.py
 ```
@@ -110,6 +111,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 │       └── __init__.py
 ├── requirements.txt
 ├── run.py
+├── migrate.py
 └── test
     └── __init__.py
 ```
