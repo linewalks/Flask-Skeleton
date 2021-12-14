@@ -1,5 +1,7 @@
+from flask import current_app as app
 from sqlalchemy import BigInteger, Column, Integer, String, Table
-from main import app, db
+
+from main import db
 
 
 t_test_log = db.Table(

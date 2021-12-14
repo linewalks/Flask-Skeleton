@@ -1,11 +1,12 @@
 import pytest
-
 import json
-from test import to_json
-from main import db
+
 from flask import g
-from main.models.data import t_test_log
+
+from main import db
+from test import to_json
 from test.conftest import client
+
 
 @pytest.fixture(scope="function")
 def session():
@@ -19,6 +20,7 @@ def session():
 @pytest.mark.parametrize("id", [1, 5, 10, 100])
 @pytest.fixture(scope="function")
 def user(session, id):
+    from main.models.data import t_test_log
     session.execute(
         t_test_log.delete().where(
             t_test_log.c.id == id

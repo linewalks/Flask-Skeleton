@@ -1,15 +1,18 @@
+import base64
+import jwt
+import random
+import string
+
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import current_app as app
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
     decode_token
 )
-import random
-import string
-import jwt
-import base64
-from main import app, db
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from main import db
 
 
 class User(db.Model):
@@ -86,7 +89,7 @@ class TokenBlacklist(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   jti = db.Column(db.String(36), nullable=False)
   token_type = db.Column(db.String(10), nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey("mdwalks_backup.users.id", ondelete="SET NULL"), nullable=True)
+  user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete="SET NULL"), nullable=True)
   revoked = db.Column(db.Boolean, nullable=False)
   expires = db.Column(db.DateTime, nullable=False)
 

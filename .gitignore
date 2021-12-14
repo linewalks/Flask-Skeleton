@@ -5,9 +5,8 @@ __pycache__/
 .vscode/
 
 #cfg
-default.cfg
+flask_skeleton.cfg
 
 
 *.log
 *.pid
-

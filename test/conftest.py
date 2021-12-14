@@ -1,17 +1,16 @@
 import pytest
 
 
-from main import app as main_app
-
-
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="session")
 def app():
-  app_context = main_app.app_context()
-  app_context.push()
+  from main import create_app
+  return create_app()
 
-  yield main_app
 
-  app_context.pop()
+@pytest.fixture(scope="session", autouse=True)
+def app_context(app):
+  with app.app_context():
+    yield app
 
 
 @pytest.fixture(scope="class", autouse=True)
