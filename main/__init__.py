@@ -16,13 +16,11 @@ from flask_sqlalchemy import SQLAlchemy
 root_path = os.getcwd()
 file_path = os.path.join(root_path, "main", "flask_skeleton.cfg")
 
-
 docs = FlaskApiSpec()
 db = SQLAlchemy()
 migrate = Migrate()
 compress = Compress()
 cors = CORS()
-
 
 
 def create_app(file_paht=file_path):
