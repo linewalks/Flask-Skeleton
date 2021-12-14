@@ -6,7 +6,7 @@ from main.models.board import Board
 from main.models.common.base import BaseTable
 
 
-class Reply(BaseTable, db.Model):
+class Reply(BaseTable):
   __tablename__ = "reply"
   __table_args__ = {"schema": schema, "extend_existing": True}
   # ondelete="CASCADE"를 지정하여 Board가 삭제시 자동적으로 해당된 댓글 또한 삭제

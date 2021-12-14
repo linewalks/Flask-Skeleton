@@ -5,7 +5,7 @@ from main.models import schema
 from main.models.common.base import BaseTable
 
 
-class Board(BaseTable, db.Model):
+class Board(BaseTable):
   __tablename__ = "board"
   __table_args__ = {"schema": schema, "extend_existing": True}
   id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
