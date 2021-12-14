@@ -9,14 +9,17 @@ from alembic import command
 from main import create_app
 
 
+SCHEMA = "SCHEMA_TEST"
+
+
 def replace_schema(txt, schema_name):
-  txt = txt.replace(f"schema='{schema_name}'", "schema=app.config['SCHEMA_MDWALKS']")
+  txt = txt.replace(f"schema='{schema_name}'", f"schema=app.config['{SCHEMA}']")
 
   # for foreign key name
-  txt = txt.replace(f"{schema_name}.", f"' + app.config['SCHEMA_MDWALKS'] + '.")
+  txt = txt.replace(f"{schema_name}.", f"' + app.config['{SCHEMA}'] + '.")
 
   # for index name
-  txt = txt.replace(f"_{schema_name}_", f"_' + app.config['SCHEMA_MDWALKS'] + '_")
+  txt = txt.replace(f"_{schema_name}_", f"_' + app.config['{SCHEMA}'] + '_")
 
   code_start_idx = txt.find("from alembic")
   txt = txt[:code_start_idx] + f"\nfrom flask import current_app as app\n" + txt[code_start_idx:]
@@ -28,11 +31,11 @@ def migrate(**kwargs):
   'revision --autogenerate')
   """
   app = create_app()
-  schema_name = app.config["SCHEMA_MDWALKS"]
+  schema_name = app.config[SCHEMA]
 
   with app.app_context():
-    config = app.extensions['migrate'].migrate.get_config(
-        None, opts=['autogenerate'], x_arg=None)
+    config = app.extensions["migrate"].migrate.get_config(
+        None, opts=["autogenerate"], x_arg=None)
     result_list = command.revision(config, None, autogenerate=True, sql=False,
                                    head="head", splice=False, branch_label=None,
                                    version_path=None, rev_id=None)
