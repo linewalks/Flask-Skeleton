@@ -21,7 +21,6 @@ docs = FlaskApiSpec()
 db = SQLAlchemy()
 migrate = Migrate()
 compress = Compress()
-jwt = JWTManager()
 cors = CORS()
 
 
@@ -42,29 +41,21 @@ def create_app(file_paht=file_path):
       "APISPEC_SWAGGER_URL": "/docs.json",
       "APISPEC_SWAGGER_UI_URL": "/docs/"
   })
-  app.config["JWT_IDENTITY_CLAIM"] = "identity"
-  app.config["JWT_BLACKLIST_ENABLED"] = True
-  app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = ["access", "refresh"]
-  app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_ACCESS_TOKEN_EXPIRES_TIME"])
-  app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=app.config["JWT_REFRESH_TOKEN_EXPIRES_TIME"])
+
   docs.init_app(app)
   db.init_app(app)
   migrate.init_app(app, db, compare_type=True, compare_server_default=True)
   compress.init_app(app)
-  jwt.init_app(app)
   cors.init_app(app)
 
   with app.app_context():
     # set mirgration model import
     from main.models.data import t_test_log
-    from main.models.user import User, TokenBlacklist
 
     # Blueprint
     from main.controllers import skeleton_bp
-    from main.controllers.auth import auth_bp
     blueprints = [
-        skeleton_bp,
-        auth_bp
+        skeleton_bp
     ]
 
     for bp in blueprints:
