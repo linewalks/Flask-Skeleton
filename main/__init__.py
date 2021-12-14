@@ -51,10 +51,9 @@ def create_app(file_paht=file_path):
     from main.models.reply import Reply
 
     # Blueprint
-    # TODO api 작성 후 주석 제거
-    # from main.controllers import skeleton_bp
+    from main.controllers.board import board_bp
     blueprints = [
-        # skeleton_bp
+        board_bp
     ]
 
     for bp in blueprints:

@@ -10,3 +10,5 @@ flask_skeleton.cfg
 
 *.log
 *.pid
+
+migrations/
