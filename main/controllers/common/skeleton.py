@@ -3,7 +3,7 @@ from flask import current_app as app
 from main import db
 from main.models.data import t_test_log
 
-schema_name = app.config['SCHEMA_TEST']
+schema_name = app.config["SCHEMA_TEST"]
 
 
 def get_test_id_info(test_id):
