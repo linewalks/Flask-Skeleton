@@ -2,7 +2,7 @@ from sqlalchemy import func
 
 from main import db
 from main.models import schema
-from main.models import BaseTable
+from main.models.common.base import BaseTable
 
 
 class Board(BaseTable, db.Model):
