@@ -12,8 +12,6 @@ from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from main.models.smtp import Smtp
-
 
 root_path = os.getcwd()
 file_path = os.path.join(root_path, "main", "flask_skeleton.cfg")
@@ -25,7 +23,7 @@ migrate = Migrate()
 compress = Compress()
 jwt = JWTManager()
 cors = CORS()
-email_sender = Smtp("smtp.gmail.com", 587)
+
 
 
 def create_app(file_paht=file_path):
@@ -55,7 +53,6 @@ def create_app(file_paht=file_path):
   compress.init_app(app)
   jwt.init_app(app)
   cors.init_app(app)
-  email_sender.set_account(app.config["EMAIL_ACCOUNT"], app.config["EMAIL_PASSWORD"])
 
   with app.app_context():
     # set mirgration model import

@@ -9,7 +9,6 @@ from flask_jwt_extended import (
 
 from main import (
     db,
-    email_sender,
     jwt
 )
 from main.controllers.auth import (
@@ -32,7 +31,6 @@ from main.models.common.error import (
     SUCCESS_SIGNUP,
     SUCCESS_VERIFICATION
 )
-from main.models.mail import SignupCheck
 from main.models.resources import (
     RequestEmailVerification,
     RequestLoginSchema,
@@ -107,10 +105,6 @@ def signup(**kwargs):
   user_info = User(**kwargs)
   db.session.add(user_info)
   db.session.commit()
-  try:
-    email_sender.sendmail(user_info.email, SignupCheck(user_info))
-  except Exception as e:
-    return ERROR_SEND_MAIL.get_response()
 
   return SUCCESS_SIGNUP.get_response()
 
