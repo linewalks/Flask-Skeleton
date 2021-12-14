@@ -1,6 +1,5 @@
 apispec==4.3.0
 apispec-webframeworks==0.5.2
-flask_jwt_extended
 flask-compress
 flask_cors
 flask_sqlalchemy
