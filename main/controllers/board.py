@@ -95,7 +95,7 @@ def update_board_info(board_id, title, content):
     summary="게시판 삭제",
     description="게시판을 식제합니다."
 )
-def update_board_info(board_id):
+def delete_board_info(board_id):
   board = Board.get(board_id)
   if not board:
     return ERROR_BOARD_NOT_FOUND.get_response()
