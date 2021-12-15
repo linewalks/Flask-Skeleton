@@ -9,11 +9,11 @@ class Error:
 
   def get_response(self, **msg_kwargs):
     msg = self.msg.format(**msg_kwargs)
-    return {'msg_id': self.id, 'msg': msg}, self.code
+    return {"msg_id": self.id, "msg": msg}, self.code
 
 
 class ResponseError(Schema):
-  msgId = fields.Str(attribute='msg_id')
+  msg_id = fields.Str(data_key="msgId")
   msg = fields.Str()
 
 

@@ -1,4 +1,4 @@
-from marshmallow import fields, Schema, validate
+from marshmallow import fields, Schema
 from main.schema import RequestPagination, ResponsePagination
 
 
@@ -11,7 +11,7 @@ class BoardSchema(Schema):
 class BoardInfoSchema(BoardSchema):
   id = fields.Int(required=True)
   created_time = fields.DateTime(required=True)
-  updated_time = fields.DateTime(required=True)
+  updated_time = fields.DateTime(required=True, allow_none=True)
   deleted_time = fields.DateTime(required=True, allow_none=True)
 
 

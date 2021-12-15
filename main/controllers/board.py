@@ -61,11 +61,13 @@ def get_board_info_list(page, length):
 @marshal_with(ResponseError)
 @doc(
     tags=[API_CATEGORY],
-    summary="게시판 목록 리스트",
-    description="게시판 목록 리스트를 불러옵니다."
+    summary="게시판 정보",
+    description="게시판 정보를 확인합니다."
 )
 def get_board_info(board_id):
   board = Board.get(board_id)
+  if not board:
+    return ERROR_BOARD_NOT_FOUND.get_response()
   return {
       "board_info": board.as_dict()
   }

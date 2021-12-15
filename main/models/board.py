@@ -1,8 +1,11 @@
+from flask import current_app as app
 from sqlalchemy import func
 
 from main import db
-from main.models import schema
 from main.models.common.base import BaseTable
+
+
+schema = app.config["SCHEMA_TEST"]
 
 
 class Board(BaseTable):
