@@ -15,3 +15,11 @@ class Board(BaseTable):
   updated_time = db.Column(db.DateTime)
   # 삭제 되지 않은 프로젝트 검색시 쿼리 성능 향상을 위한 index
   deleted_time = db.Column(db.DateTime, index=True)
+  
+  @classmethod
+  def get(cls, board_id):
+    board = cls.query.filter(
+        cls.id==board_id,
+        cls.deleted_time.is_(None)
+    ).one_or_none()
+    return board

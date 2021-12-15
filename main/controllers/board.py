@@ -11,7 +11,8 @@ from main.models.common.error import (
 from main.schema.board import (
     RequestCreateBoard,
     RequestBoardList,
-    ResponseBoardList
+    ResponseBoardList,
+    ResponseBoardInfo
 )
 
 
@@ -48,4 +49,19 @@ def get_board_info_list(page, length):
   board_list = get_board_list(page, length)
   return {
       "board_list": board_list
+  }
+
+
+@board_bp.route("/<int:board_id>", methods=["GET"])
+@marshal_with(ResponseBoardInfo, code=200)
+@marshal_with(ResponseError)
+@doc(
+    tags=[API_CATEGORY],
+    summary="게시판 목록 리스트",
+    description="게시판 목록 리스트를 불러옵니다."
+)
+def get_board_info(board_id):
+  board = Board.get(board_id)
+  return {
+      "board_info": board.as_dict()
   }

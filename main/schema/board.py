@@ -39,3 +39,10 @@ class ResponseBoardList(Schema):
       data_key="boardList"
   )
 
+
+class ResponseBoardInfo(Schema):
+  board_info = fields.Nested(
+      BoardInfoSchema,
+      requried=True,
+      data_key="boardInfo"
+  )
