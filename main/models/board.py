@@ -28,7 +28,7 @@ class Board(BaseTable):
   def get_deleted_board(cls, board_id):
     board = cls.query.filter(
         cls.id==board_id,
-        cls.deleted_time.isnot_(None)
+        cls.deleted_time.isnot(None)
     ).one_or_none()
     return board
 
