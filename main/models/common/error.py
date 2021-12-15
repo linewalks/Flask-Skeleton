@@ -22,7 +22,6 @@ class ResponseError(Schema):
 # 새로운 카테고리의 에러는 앞 숫자 변경 u101, u201
 # 같은 에러지만 상태 코드가 다른 경우, 같은 에러 코드를 쓴다
 # 성공이지만 메세지가 필요한 경우, 다음과 같이 명명한다. SUCCESS_*
-SUCCESS_CREATE_BOARD = Error("u001", "Success to register the board.", 200)
-
-ERROR_ID_NOT_EXISTS = Error('u101', "Id not exists.", 400)
-ERROR_ID_ALREADY_EXISTS = Error('u102', "Id already exists.", 400)
+ERROR_BOARD_NOT_FOUND = Error("u001", "Board not found.", 404)
+SUCCESS_CREATE_BOARD = Error("u011", "Success to register the board.", 200)
+SUCCESS_UPDATE_BOARD = Error("u011", "Success to update the board.", 200)

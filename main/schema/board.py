@@ -15,7 +15,7 @@ class BoardInfoSchema(BoardSchema):
   deleted_time = fields.DateTime(required=True, allow_none=True)
 
 
-class BoardListSchmea(ResponsePagination):
+class BoardListSchema(ResponsePagination):
   list = fields.List(
     fields.Nested(BoardInfoSchema), 
     requried=True
@@ -31,10 +31,14 @@ class RequestBoardList(RequestPagination):
   pass
 
 
+class RequestUpdateBoard(BoardSchema):
+  pass
+
+
 # Response
 class ResponseBoardList(Schema):
   board_list = fields.Nested(
-      BoardListSchmea,
+      BoardListSchema,
       requried=True,
       data_key="boardList"
   )

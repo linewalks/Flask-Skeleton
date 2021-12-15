@@ -1,18 +1,20 @@
 from flask import Blueprint
 from flask_apispec import doc, marshal_with, use_kwargs
 
-from main import db
 from main.controllers.common import get_board_list
 from main.models.board import Board
 from main.models.common.error import (
     ResponseError,
-    SUCCESS_CREATE_BOARD
+    ERROR_BOARD_NOT_FOUND,
+    SUCCESS_CREATE_BOARD,
+    SUCCESS_UPDATE_BOARD
 )
 from main.schema.board import (
-    RequestCreateBoard,
     RequestBoardList,
-    ResponseBoardList,
-    ResponseBoardInfo
+    RequestCreateBoard,
+    RequestUpdateBoard,
+    ResponseBoardInfo,
+    ResponseBoardList
 )
 
 
@@ -65,3 +67,22 @@ def get_board_info(board_id):
   return {
       "board_info": board.as_dict()
   }
+
+
+@board_bp.route("/<int:board_id>", methods=["POST"])
+@use_kwargs(RequestUpdateBoard)
+@marshal_with(ResponseError)
+@doc(
+    tags=[API_CATEGORY],
+    summary="게시판 수정",
+    description="게시판을 수정합니다."
+)
+def update_board_info(board_id, title, content):
+  board = Board.get(board_id)
+  if not board:
+    return ERROR_BOARD_NOT_FOUND.get_response()
+  board.update(
+      title=title,
+      content=content
+  )
+  return SUCCESS_UPDATE_BOARD.get_response()
