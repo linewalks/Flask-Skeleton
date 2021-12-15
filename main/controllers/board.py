@@ -86,3 +86,18 @@ def update_board_info(board_id, title, content):
       content=content
   )
   return SUCCESS_UPDATE_BOARD.get_response()
+
+
+@board_bp.route("/<int:board_id>/delete", methods=["POST"])
+@marshal_with(ResponseError)
+@doc(
+    tags=[API_CATEGORY],
+    summary="게시판 삭제",
+    description="게시판을 식제합니다."
+)
+def update_board_info(board_id):
+  board = Board.get(board_id)
+  if not board:
+    return ERROR_BOARD_NOT_FOUND.get_response()
+  board.soft_delete()
+  return SUCCESS_UPDATE_BOARD.get_response()

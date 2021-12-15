@@ -25,3 +25,4 @@ class ResponseError(Schema):
 ERROR_BOARD_NOT_FOUND = Error("u001", "Board not found.", 404)
 SUCCESS_CREATE_BOARD = Error("u011", "Success to register the board.", 200)
 SUCCESS_UPDATE_BOARD = Error("u011", "Success to update the board.", 200)
+SUCCESS_DELETE_BOARD = Error("u011", "Success to delete the board.", 200)
