@@ -15,7 +15,7 @@ class Board(BaseTable):
   title = db.Column(db.String(50), nullable=False) 
   content = db.Column(db.String(1024))
   created_time = db.Column(db.DateTime, nullable=False, server_default=func.now())
-  updated_time = db.Column(db.DateTime)
+  updated_time = db.Column(db.DateTime, nullable=False, server_default=func.now())
   # 삭제 되지 않은 프로젝트 검색시 쿼리 성능 향상을 위한 index
   deleted_time = db.Column(db.DateTime, index=True)
 

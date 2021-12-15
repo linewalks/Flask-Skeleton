@@ -3,6 +3,7 @@ from flask_apispec import doc, marshal_with, use_kwargs
 
 from main.controllers.common import get_board_list
 from main.models.board import Board
+from main.models.reply import Reply
 from main.models.common.error import (
     ResponseError,
     ERROR_BOARD_NOT_FOUND,
@@ -68,8 +69,10 @@ def get_board_info(board_id):
   board = Board.get(board_id)
   if not board:
     return ERROR_BOARD_NOT_FOUND.get_response()
+  reply_list = Reply.get_list(board.id)
   return {
-      "board_info": board.as_dict()
+      "board_info": board.as_dict(),
+      "reply_list": reply_list
   }
 
 

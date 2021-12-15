@@ -1,8 +1,8 @@
 import pytest
 
 from main.models.common.error import (
-    ResponseError,
-    ERROR_BOARD_NOT_FOUND
+    ERROR_BOARD_NOT_FOUND,
+    ResponseError
 )
 from main.schema.board import (
     ResponseBoardInfo,
@@ -16,6 +16,7 @@ from test.helpers import (
   _test_post_error,
   _test_delete_error
 )
+
 
 class TestBoard:
   
