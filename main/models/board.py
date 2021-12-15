@@ -23,6 +23,14 @@ class Board(BaseTable):
         cls.deleted_time.is_(None)
     ).one_or_none()
     return board
+  
+  @classmethod
+  def get_deleted_board(cls, board_id):
+    board = cls.query.filter(
+        cls.id==board_id,
+        cls.deleted_time.isnot_(None)
+    ).one_or_none()
+    return board
 
   def update(self, title, content):
     self.title = title

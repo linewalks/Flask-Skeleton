@@ -24,5 +24,6 @@ class ResponseError(Schema):
 # 성공이지만 메세지가 필요한 경우, 다음과 같이 명명한다. SUCCESS_*
 ERROR_BOARD_NOT_FOUND = Error("u001", "Board not found.", 404)
 SUCCESS_CREATE_BOARD = Error("u011", "Success to register the board.", 200)
-SUCCESS_UPDATE_BOARD = Error("u011", "Success to update the board.", 200)
-SUCCESS_DELETE_BOARD = Error("u011", "Success to delete the board.", 200)
+SUCCESS_UPDATE_BOARD = Error("u012", "Success to update the board.", 200)
+SUCCESS_DELETE_BOARD = Error("u013", "Success to delete the board.", 200)
+SUCCESS_PERMANENTLY_DELETE_BOARD = Error("u014", "Success to permanently delete the board.", 200)

@@ -7,6 +7,8 @@ from main.models.common.error import (
     ResponseError,
     ERROR_BOARD_NOT_FOUND,
     SUCCESS_CREATE_BOARD,
+    SUCCESS_DELETE_BOARD,
+    SUCCESS_PERMANENTLY_DELETE_BOARD,
     SUCCESS_UPDATE_BOARD
 )
 from main.schema.board import (
@@ -100,4 +102,19 @@ def delete_board_info(board_id):
   if not board:
     return ERROR_BOARD_NOT_FOUND.get_response()
   board.soft_delete()
-  return SUCCESS_UPDATE_BOARD.get_response()
+  return SUCCESS_DELETE_BOARD.get_response()
+
+
+@board_bp.route("/<int:board_id>/delete", methods=["DELETE"])
+@marshal_with(ResponseError)
+@doc(
+    tags=[API_CATEGORY],
+    summary="게시판 영구 삭제",
+    description="게시판을 영구 식제합니다."
+)
+def permanently_delete_board_info(board_id):
+  board = Board.get_deleted_board(board_id)
+  if not board:
+    return ERROR_BOARD_NOT_FOUND.get_response()
+  Board.delete(board)
+  return SUCCESS_PERMANENTLY_DELETE_BOARD.get_response()
