@@ -7,13 +7,13 @@ def app():
   return create_app()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session", autouse=True)
 def app_context(app):
   with app.app_context():
     yield app
 
 
-@pytest.fixture
+@pytest.fixture(scope="class", autouse=True)
 def client(app_context):
   client = app_context.test_client()
   return client
