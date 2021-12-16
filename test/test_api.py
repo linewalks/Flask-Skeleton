@@ -1,74 +1,134 @@
 import pytest
-import json
 
-from flask import g
+from main.models.common.error import (
+    ERROR_BOARD_NOT_FOUND,
+    ResponseError
+)
+from main.schema.board import (
+    ResponseBoardInfo,
+    ResponseBoardList
+)
+from test.helpers import (
+  _test_get_status_code,
+  _test_post_status_code,
+  _test_delete_status_code,
+  _test_get_error,
+  _test_post_error,
+  _test_delete_error
+)
 
-from main import db
-from test import to_json
-from test.conftest import client
+
+class TestBoard:
+  
+  @pytest.fixture(scope="class")
+  def board(self, db):
+    from main.models.board import Board
+    board = Board(
+        title="example board",
+        content="example content"
+    )
+    db.session.add(board)
+    db.session.commit()
+    yield board
+    db.session.delete(board)
+    db.session.commit()
 
 
-@pytest.fixture(scope="function")
-def session():
-    session = db.session
-    g.db = session
-    yield session
-    session.rollback()
-    session.close()
-
-
-@pytest.mark.parametrize("id", [1, 5, 10, 100])
-@pytest.fixture(scope="function")
-def user(session, id):
-    from main.models.data import t_test_log
-    session.execute(
-        t_test_log.delete().where(
-            t_test_log.c.id == id
-        )
+  def test_create_board(self, client):
+    _test_post_status_code(
+        client,
+        200,
+        "/api/board/create",
+        {
+            "title": "test_board",
+            "content": "this board is test board"
+        },
+        schema=ResponseError()
     )
 
+  def test_get_board_info(self, client, board):
+    _test_get_status_code(
+        client,
+        200,
+        f"/api/board/{board.id}",
+        schema=ResponseBoardInfo()
+    )
+  
+  def test_get_board_info_not_found(self, client):
+    _test_get_error(
+        client,
+        ERROR_BOARD_NOT_FOUND,
+        "/api/board/0"
+    )
+  
+  @pytest.mark.parametrize("page", [1, 5, 10])
+  @pytest.mark.parametrize("length", [0, 10, 20])
+  def test_get_board_info_list(self, client, page, length):
+    _test_get_status_code(
+        client,
+        200,
+        f"/api/board/list",
+        {"page": page, "length": length},
+        schema=ResponseBoardList()
+    )
 
-# 공통 함수
-def simple_get_test_status_code(client, status_code, url, query_string=None):
-  rv = client.get(url, query_string=query_string)
-  assert rv.status_code == status_code
-  return rv
+  def test_update_board(self, client, board):
+    _test_post_status_code(
+        client,
+        200,
+        f"/api/board/{board.id}",
+        {
+            "title": "change example board",
+            "content": "change this board is test board"
+        },
+        schema=ResponseError()
+    )
+  
+  def test_update_board_not_found(self, client):
+    _test_post_error(
+        client,
+        ERROR_BOARD_NOT_FOUND,
+        "/api/board/0",
+        {
+            "title": "change example board",
+            "content": "change this board is test board"
+        }
+    )
 
+  def test_delete_board(self, client, board):
+    _test_post_status_code(
+        client,
+        200,
+        f"/api/board/{board.id}/delete",
+        schema=ResponseError()
+    )
+  
+  def test_delete_board_not_found(self, client, board):
+    _test_post_error(
+        client,
+        ERROR_BOARD_NOT_FOUND,
+        f"/api/board/{board.id}/delete"
+    )
 
-def simple_post_test_status_code(client, status_code, url, body=None):
-    mimetype = "application/json"
-    headers = {
-        "Content-Type": mimetype,
-        "Accept": mimetype
-    }
-    rv = client.post(url, data=json.dumps(body), headers=headers)
-    response = to_json(rv.data)
-    assert rv.content_type == mimetype
-    assert rv.status_code == status_code
-    return rv
-
-
-def simple_get_test_status_code_200(client, url, query_string=None):
-  return simple_get_test_status_code(client, 200, url, query_string)
-
-
-def simple_get_test_status_code_404(client, url, query_string=None):
-  return simple_get_test_status_code(client, 404, url, query_string)
-
-
-def simple_post_test_status_code_200(client, url, body=None):
-  return simple_post_test_status_code(client, 200, url, body)
-
-
-class TestSkeleton():
-  @pytest.mark.parametrize("id", [1])
-  def test_get_skeleton_success(self, client, id):
-    simple_get_test_status_code_200(client, "/api/skeleton", f"id={id}")
-
-  def test_get_skeleton_not_found(self, client):
-    simple_get_test_status_code_404(client, "/api/skeleton")
-
-  @pytest.mark.parametrize("id", [1, 5, 10, 100])
-  def test_post_skeleton_success(self, client, user, id):
-      data = {"id": id, "name": "test_name", "count": 10}
-      simple_post_test_status_code_200(client, "/api/skeleton", data)
+  def test_permanently_delete_board(self, client, board):
+    _test_delete_status_code(
+        client,
+        200,
+        f"/api/board/{board.id}/delete",
+        {
+            "title": "change example board",
+            "content": "change this board is test board"
+        },
+        schema=ResponseError()
+    )
+  
+  def test_permanently_delete_board_not_found(self, client, board):
+    _test_delete_error(
+        client,
+        ERROR_BOARD_NOT_FOUND,
+        f"/api/board/{board.id}/delete",
+        {
+            "title": "change example board",
+            "content": "change this board is test board"
+        }
+    )

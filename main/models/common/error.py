@@ -9,11 +9,11 @@ class Error:
 
   def get_response(self, **msg_kwargs):
     msg = self.msg.format(**msg_kwargs)
-    return {'msg_id': self.id, 'msg': msg}, self.code
+    return {"msg_id": self.id, "msg": msg}, self.code
 
 
 class ResponseError(Schema):
-  msgId = fields.Str(attribute='msg_id')
+  msg_id = fields.Str(data_key="msgId")
   msg = fields.Str()
 
 
@@ -22,25 +22,8 @@ class ResponseError(Schema):
 # 새로운 카테고리의 에러는 앞 숫자 변경 u101, u201
 # 같은 에러지만 상태 코드가 다른 경우, 같은 에러 코드를 쓴다
 # 성공이지만 메세지가 필요한 경우, 다음과 같이 명명한다. SUCCESS_*
-ERROR_VERIFY_EMAIL_PASSWORD = Error("u005", "Email or Password is not verified", 400)
-ERROR_NULL_EMAIL = Error("u006", "Email should not be null.", 400)
-ERROR_NULL_PASSWORD = Error("u007", "Password should not be null.", 400)
-ERROR_USER_EMAIL_EXISTS = Error("u008", "User email already exists.", 409)
-ERROR_USER_EMAIL_NOT_EXISTS = Error("u009", "User email not exists.", 400)
-ERROR_NOT_VALIDATED_ACCOUNT = Error("u010", "Your email has not been validated yet, please check your email.", 401)
-ERROR_USER_NOT_EXISTS = Error("u011", "User does not exist.", 401)
-ERROR_SEND_MAIL = Error("u012", "Sending an email make error.", 404)
-ERROR_SIGNUP_VERIFICATION = Error("u013", "Signup is error.", 401)
-
-ERROR_ID_NOT_EXISTS = Error('u101', "Id not exists.", 400)
-ERROR_ID_ALREADY_EXISTS = Error('u102', "Id already exists.", 400)
-
-SUCCESS_ID_INSERT = Error('u202', "id insert success.", 200)
-SUCCESS_ID_UPDATE = Error('u203', "id update success.", 200)
-SUCCESS_ID_DELETE = Error('u204', "id delete success.", 200)
-SUCCESS_SIGNUP = Error('u205', "sign up success.", 200)
-SUCCESS_LOGOUT = Error('u206', "sign out success.", 200)
-SUCCESS_VERIFICATION = Error("u207", "Successfully verified.", 200)
-
-ERROR_PARAMETER_NOT_EXISTS = Error('u301', "parameter not exists.", 404)
-ERROR_BODY_NOT_EXISTS = Error('u302', "body not exists.", 400)
+ERROR_BOARD_NOT_FOUND = Error("u001", "Board not found.", 404)
+SUCCESS_CREATE_BOARD = Error("u011", "Success to register the board.", 200)
+SUCCESS_UPDATE_BOARD = Error("u012", "Success to update the board.", 200)
+SUCCESS_DELETE_BOARD = Error("u013", "Success to delete the board.", 200)
+SUCCESS_PERMANENTLY_DELETE_BOARD = Error("u014", "Success to permanently delete the board.", 200)

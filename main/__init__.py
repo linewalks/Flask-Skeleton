@@ -48,13 +48,12 @@ def create_app(file_paht=file_path):
   with app.app_context():
     # set mirgration model import
     from main.models.board import Board
-    from main.models.reply import Reply
+    from main.models.comment import Comment
 
     # Blueprint
-    # TODO api 작성 후 주석 제거
-    # from main.controllers import skeleton_bp
+    from main.controllers.board import board_bp
     blueprints = [
-        # skeleton_bp
+        board_bp
     ]
 
     for bp in blueprints:

@@ -14,6 +14,13 @@ def app_context(app):
 
 
 @pytest.fixture(scope="class", autouse=True)
-def client(app):
-  client = app.test_client()
-  yield client
+def client(app_context):
+  client = app_context.test_client()
+  return client
+
+
+@pytest.fixture(scope="module")
+def db(app_context):
+  from main import db
+  db.init_app(app_context)
+  yield db
