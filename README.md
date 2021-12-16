@@ -57,7 +57,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 - Database 를 PostgreSQL 로 가정하고 구성하였습니다. 다른 데이터베이스를 사용시 requirements.txt 및 flask_skeleton.default.cfg 의 URI 를 변경해야 합니다.
 
 ## API 실행 방법
-`./bin/run_server {port 번호}`
+`./bin/run_server.sh {port 번호}`
 
 ##  데이터베이스 구조
  ![ERD](https://user-images.githubusercontent.com/80883063/145939343-8256b629-af16-4524-b0fe-8f8403ebd8b6.PNG)
@@ -142,7 +142,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 - Database is assumed and configured as PostgreSQL. You must change the URI of flask_skeleton.default.cfg and requirements.txt when using other databases.
 
 ## Basic use
-`./bin/run_server {port number}`
+`./bin/run_server.sh {port number}`
 
 ## Database structure
  ![ERD](https://user-images.githubusercontent.com/80883063/145939343-8256b629-af16-4524-b0fe-8f8403ebd8b6.PNG)
