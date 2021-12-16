@@ -10,5 +10,8 @@ class CommentSchema(Schema):
 class RequestCreateComment(CommentSchema):
   pass
 
+class RequestUpdateComment(CommentSchema):
+  comment_id = fields.Int(reqiroed=True)
+
 
 # Response

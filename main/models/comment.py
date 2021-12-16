@@ -29,6 +29,13 @@ class Comment(BaseTable):
     )
 
   @classmethod
+  def get(cls, comment_id, board_id):
+    return cls.query.filter(
+        cls.id == comment_id,
+        cls.board_id == board_id
+    ).one_or_none()
+
+  @classmethod
   def get_list(cls, board_id):
     comments = cls.query.filter(
         cls.board_id == board_id
@@ -40,3 +47,8 @@ class Comment(BaseTable):
         for comment in comments
     ]
     return comment_list
+
+  def update(self, content):
+    self.content = content
+    self.updated_time = func.now()
+    db.session.commit()
