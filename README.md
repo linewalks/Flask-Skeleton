@@ -8,6 +8,7 @@
 ├── app.py
 ├── bin
 │   ├── run_server.sh
+│   ├── test.sh
 │   ├── init_db.sh
 │   ├── migrade_db.sh
 │   ├── upgrade_db.sh
@@ -16,25 +17,30 @@
 │   ├── __init__.py
 │   ├── controllers
 │   │   ├── __init__.py
-│   │   ├── common
-│   │   │   └── skeleton.py
-│   │   └── skeleton.py
+│   │   ├── common.py
+│   │   ├── board.py
+│   │   └── comment.py
 │   ├── flask_skeleton.cfg
 │   ├── flask_skeleton.default.cfg
 │   ├── models
 │   │   ├── __init__.py
 │   │   ├── common
-│   │   │   ├── error.py
+│   │   │   ├── base.py
 │   │   │   └── error.py
 │   │   ├── board.py
 │   │   └── comment.py
 │   └── schema
-│       └── __init__.py
+│       ├── __init__.py
+│       ├── board.py
+│       └── comment.py
 ├── requirements.txt
 ├── run.py
 ├── migrate.py
 └── test
-    └── __init__.py
+     ├── __init__.py
+     ├── conftest.py
+     ├── helpers.py
+     └── test_api.py
 ```
 
 ## 설치 방법
@@ -51,7 +57,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 - Database 를 PostgreSQL 로 가정하고 구성하였습니다. 다른 데이터베이스를 사용시 requirements.txt 및 flask_skeleton.default.cfg 의 URI 를 변경해야 합니다.
 
 ## API 실행 방법
-`python3 run.py {port 번호}`
+`./bin/run_server {port 번호}`
 
 ##  데이터베이스 구조
  ![ERD](https://user-images.githubusercontent.com/80883063/145939343-8256b629-af16-4524-b0fe-8f8403ebd8b6.PNG)
@@ -74,7 +80,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 `./bin/downgrade_db.sh`
 
 ## test 방법
-`pytest -sv test/`
+`./bin/test.sh`
 
 
 # Flask-Skeleton English ver. 
@@ -87,6 +93,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 ├── app.py
 ├── bin
 │   ├── run_server.sh
+│   ├── test.sh
 │   ├── init_db.sh
 │   ├── migrade_db.sh
 │   ├── upgrade_db.sh
@@ -95,25 +102,30 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 │   ├── __init__.py
 │   ├── controllers
 │   │   ├── __init__.py
-│   │   ├── common
-│   │   │   └── skeleton.py
-│   │   └── skeleton.py
+│   │   ├── common.py
+│   │   ├── board.py
+│   │   └── comment.py
 │   ├── flask_skeleton.cfg
 │   ├── flask_skeleton.default.cfg
 │   ├── models
 │   │   ├── __init__.py
 │   │   ├── common
-│   │   │   ├── error.py
+│   │   │   ├── base.py
 │   │   │   └── error.py
 │   │   ├── board.py
 │   │   └── comment.py
 │   └── schema
-│       └── __init__.py
+│       ├── __init__.py
+│       ├── board.py
+│       └── comment.py
 ├── requirements.txt
 ├── run.py
 ├── migrate.py
 └── test
-    └── __init__.py
+     ├── __init__.py
+     ├── conftest.py
+     ├── helpers.py
+     └── test_api.py
 ```
 
 ## Installation
@@ -130,7 +142,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 - Database is assumed and configured as PostgreSQL. You must change the URI of flask_skeleton.default.cfg and requirements.txt when using other databases.
 
 ## Basic use
-`python3 run.py {port number}`
+`./bin/run_server {port number}`
 
 ## Database structure
  ![ERD](https://user-images.githubusercontent.com/80883063/145939343-8256b629-af16-4524-b0fe-8f8403ebd8b6.PNG)
@@ -153,4 +165,4 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 `./bin/downgrade_db.sh`
 
 ## Test 
-`pytest -sv test/`
+`./bin/test.sh`
