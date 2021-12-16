@@ -25,8 +25,8 @@ class BoardInfoSchema(BoardSchema):
 
 class BoardListSchema(ResponsePagination):
   list = fields.List(
-    fields.Nested(BoardInfoSchema), 
-    requried=True
+      fields.Nested(BoardInfoSchema), 
+      requried=True
   )
 
 
