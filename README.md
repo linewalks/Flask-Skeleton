@@ -27,7 +27,7 @@
 │   │   │   ├── error.py
 │   │   │   └── error.py
 │   │   ├── board.py
-│   │   └── reply.py
+│   │   └── comment.py
 │   └── schema
 │       └── __init__.py
 ├── requirements.txt
@@ -106,7 +106,7 @@ SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user_name:pw_name@localhost:5432/
 │   │   │   ├── error.py
 │   │   │   └── error.py
 │   │   ├── board.py
-│   │   └── reply.py
+│   │   └── comment.py
 │   └── schema
 │       └── __init__.py
 ├── requirements.txt

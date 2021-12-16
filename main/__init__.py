@@ -48,7 +48,7 @@ def create_app(file_paht=file_path):
   with app.app_context():
     # set mirgration model import
     from main.models.board import Board
-    from main.models.reply import Reply
+    from main.models.comment import Comment
 
     # Blueprint
     from main.controllers.board import board_bp

@@ -8,7 +8,7 @@ class BoardSchema(Schema):
   content = fields.Str(requried=True, allow_none=True)
 
 
-class BoardReplySchema(Schema):
+class BoardCommentSchema(Schema):
   id = fields.Int(required=True)
   board_id = fields.Int(required=True)
   comment = fields.Str(requried=True)
@@ -58,8 +58,8 @@ class ResponseBoardInfo(Schema):
       requried=True,
       data_key="boardInfo"
   )
-  reply_list = fields.List(
-      fields.Nested(BoardReplySchema),
+  comment_list = fields.List(
+      fields.Nested(BoardCommentSchema),
       requried=True,
-      data_key="replyList"
+      data_key="commentList"
   )
