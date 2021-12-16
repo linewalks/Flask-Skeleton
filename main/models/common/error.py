@@ -27,3 +27,6 @@ SUCCESS_CREATE_BOARD = Error("u011", "Success to register the board.", 200)
 SUCCESS_UPDATE_BOARD = Error("u012", "Success to update the board.", 200)
 SUCCESS_DELETE_BOARD = Error("u013", "Success to delete the board.", 200)
 SUCCESS_PERMANENTLY_DELETE_BOARD = Error("u014", "Success to permanently delete the board.", 200)
+
+
+SUCCESS_CREATE_COMMENT = Error("u111", "Success to register the comment.", 200)
