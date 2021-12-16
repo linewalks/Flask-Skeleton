@@ -13,5 +13,5 @@ class RequestPagination(Schema):
 
 
 class ResponsePagination(Schema):
-  page = fields.Int()
+  page = fields.Int(validate=validate.Range(min=1))
   total_length = fields.Int(data_key="totalLength")

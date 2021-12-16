@@ -31,12 +31,12 @@ class Comment(BaseTable):
   @classmethod
   def get_list(cls, board_id):
     comments = cls.query.filter(
-        cls.board_id==board_id
+        cls.board_id == board_id
     ).order_by(
         cls.recent_time.desc()
     ).all()
     comment_list = [
-      comment.as_dict()
-      for comment in comments
+        comment.as_dict()
+        for comment in comments
     ]
     return comment_list

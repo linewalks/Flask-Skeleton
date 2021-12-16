@@ -22,7 +22,7 @@ class Board(BaseTable):
   @classmethod
   def get(cls, board_id):
     board = cls.query.filter(
-        cls.id==board_id,
+        cls.id == board_id,
         cls.deleted_time.is_(None)
     ).one_or_none()
     return board
@@ -30,7 +30,7 @@ class Board(BaseTable):
   @classmethod
   def get_deleted_board(cls, board_id):
     board = cls.query.filter(
-        cls.id==board_id,
+        cls.id == board_id,
         cls.deleted_time.isnot(None)
     ).one_or_none()
     return board
