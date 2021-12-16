@@ -118,7 +118,7 @@ def delete_board_info(board_id):
     description="게시판을 영구 식제합니다."
 )
 def permanently_delete_board_info(board_id):
-  board = Board.get_deleted_board(board_id)
+  board = Board.get(board_id, is_deleted=True)
   if not board:
     return ERROR_BOARD_NOT_FOUND.get_response()
   Board.delete(board)

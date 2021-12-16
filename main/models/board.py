@@ -20,18 +20,14 @@ class Board(BaseTable):
   deleted_time = db.Column(db.DateTime, index=True)
 
   @classmethod
-  def get(cls, board_id):
+  def get(cls, board_id, is_deleted=False):
+    if is_deleted:
+      delete_conditon = cls.deleted_time.isnot(None)
+    else:
+      delete_conditon = cls.deleted_time.is_(None)
     board = cls.query.filter(
         cls.id == board_id,
-        cls.deleted_time.is_(None)
-    ).one_or_none()
-    return board
-  
-  @classmethod
-  def get_deleted_board(cls, board_id):
-    board = cls.query.filter(
-        cls.id == board_id,
-        cls.deleted_time.isnot(None)
+        delete_conditon
     ).one_or_none()
     return board
 
