@@ -8,10 +8,12 @@ from main.models.common.error import (
     ERROR_COMMENT_DOES_NOT_EXISTS,
     ResponseError,
     SUCCESS_CREATE_COMMENT,
+    SUCCESS_DELETE_COMMENT,
     SUCCESS_UPDATE_COMMENT
 )
 from main.schema.comment import (
     RequestCreateComment,
+    RequestDeleteComment,
     RequestUpdateComment
 )
 
@@ -55,3 +57,23 @@ def update_comment(board, comment_id, content):
     return ERROR_COMMENT_DOES_NOT_EXISTS.get_response()
   comment.update(content)
   return SUCCESS_UPDATE_COMMENT.get_response()
+
+
+@comment_bp.route("/<int:board_id>/delete", methods=["DELETE"])
+@use_kwargs(RequestDeleteComment)
+@marshal_with(ResponseError)
+@doc(
+    tags=[API_CATEGORY],
+    summary="게시판 댓글 생성",
+    description="해당 게시판의 댓글을 생성 합니다."
+)
+@check_board_exisitence
+def delete_comment(board, comment_id):
+  comment = Comment.get(
+      comment_id,
+      board.id
+  )
+  if not comment:
+    return ERROR_COMMENT_DOES_NOT_EXISTS.get_response()
+  Comment.delete(comment)
+  return SUCCESS_DELETE_COMMENT.get_response()
