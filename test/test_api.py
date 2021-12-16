@@ -150,7 +150,7 @@ class TestComment:
     db.session.delete(board)
     db.session.commit()
   
-  @pytest.fixture(scope="class")
+  @pytest.fixture(scope="function")
   def comment(self, db, board):
     from main.models.comment import Comment
     comment = Comment(
