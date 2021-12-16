@@ -1,4 +1,7 @@
+from functools import wraps
+
 from main.models.board import Board
+from main.models.common.error import ERROR_BOARD_NOT_FOUND
 
 
 def get_page_offset(page, length):
@@ -27,3 +30,20 @@ def get_board_list(page, length):
       "list": board_list,
       "total_length": total_length
   }
+
+
+def check_board_exisitence(fn):  
+
+  @wraps(fn)
+  def wrapper(*args, **kwargs):
+    board_id = kwargs["board_id"]
+    board = Board.get(board_id)
+    if not board:
+      return ERROR_BOARD_NOT_FOUND.get_response()
+
+    kwargs["board"] = board
+    del kwargs["board_id"]
+
+    return fn(*args, **kwargs)
+
+  return wrapper
