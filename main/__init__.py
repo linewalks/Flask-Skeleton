@@ -52,8 +52,10 @@ def create_app(file_paht=file_path):
 
     # Blueprint
     from main.controllers.board import board_bp
+    from main.controllers.comment import comment_bp
     blueprints = [
-        board_bp
+        board_bp,
+        comment_bp
     ]
 
     for bp in blueprints:

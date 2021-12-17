@@ -10,7 +10,7 @@ class BoardSchema(Schema):
 
 class BoardCommentSchema(Schema):
   id = fields.Int(required=True)
-  board_id = fields.Int(required=True)
+  board_id = fields.Int(required=True, data_key="boardId")
   comment = fields.Str(requried=True)
   created_time = fields.DateTime(required=True, data_key="createdTime")
   updated_time = fields.DateTime(required=True, allow_none=True, data_key="updatedTime")
