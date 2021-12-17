@@ -36,6 +36,8 @@ def check_board_exisitence(fn):
 
   @wraps(fn)
   def wrapper(*args, **kwargs):
+    if "board_id" not in kwargs:
+        raise Exception("check_board_exisitence must used with board_id")
     board_id = kwargs["board_id"]
     board = Board.get(board_id)
     if not board:
