@@ -4,7 +4,7 @@ flask-compress==1.10.1
 flask_cors==3.0.10
 flask_sqlalchemy
 Fabric3==1.14.post1
-Flask==1.1.2
+Flask==2.3.2
 Flask-Migrate==2.7.0
 flask-apispec==0.11.0
 gunicorn==20.1.0
